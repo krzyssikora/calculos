@@ -1,13 +1,13 @@
-function fitProblem() {
-    textFit(document.querySelector('.carousel-item.active > .problem'), {minFontSize: 50, maxFontSize: 200});
-};
-function fitProblem0() {
-    textFit(document.querySelector('.carousel-item.active > .problem'), {minFontSize: 100, maxFontSize: 200});
-};
-$('document').ready(fitProblem);
-document.addEventListener('DOMContentLoaded', fitProblem0, false);
-window.addEventListener('load', fitProblem0, false )
-addEventListener("readystatechange", (event) => fitProblem0);
+//function fitProblem() {
+//    textFit(document.querySelector('.carousel-item.active > .problem'), {minFontSize: 50, maxFontSize: 200});
+//};
+//function fitProblem0() {
+//    textFit(document.querySelector('.carousel-item.active > .problem'), {minFontSize: 100, maxFontSize: 200});
+//};
+//$('document').ready(fitProblem);
+//document.addEventListener('DOMContentLoaded', fitProblem0, false);
+//window.addEventListener('load', fitProblem0, false )
+//addEventListener("readystatechange", (event) => fitProblem0);
 
 const myCarousel = document.querySelector('#problem_container');
 const carousel = new bootstrap.Carousel(myCarousel);
