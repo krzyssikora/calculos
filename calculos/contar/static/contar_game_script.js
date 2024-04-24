@@ -16,6 +16,7 @@ const carousel_prev = document.querySelector('.carousel-prev');
 const answer_input = document.getElementById('answer');
 const answer_confirm = document.getElementById('confirm_answer');
 const correct_answer_modal_element = document.getElementById('correct_answer_modal');
+const correct_answer_modal_body = correct_answer_modal_element.querySelector('.modal-body');
 const correct_answer_modal = new bootstrap.Modal(correct_answer_modal_element);
 const exercise_progress_bar = document.getElementById('exercise_progress_bar');
 const problems_data = JSON.parse(document.getElementById('problems_data').textContent);
@@ -45,9 +46,9 @@ function updateProgressBar(current, maximum) {
     exercise_progress_bar.setAttribute('style', `width: ${current/maximum*100}%`);
 };
 
-myCarousel.addEventListener('slid.bs.carousel', function(e) {
-    fitProblem();
-});
+//myCarousel.addEventListener('slid.bs.carousel', function(e) {
+//    fitProblem();
+//});
 
 function initiate_answer_input() {
     answer_input.value = '';
@@ -117,7 +118,7 @@ document.addEventListener('keypress', (e) => {
     };
 });
 
-
+let modal_contents = ['To jest poprawna odpowiedź!', 'Świetnie!', 'Brawo!', "Wspaniale!", "Doskonale!"]
 function accept_answer() {
     let answer = answer_input.value;
     let small_answer = small_answer_field.innerHTML;
@@ -125,6 +126,7 @@ function accept_answer() {
     if (!current_problem) {return};
     let idx = parseInt(current_problem.getAttribute('id').match(/\d+/)[0]);
     if (answer == problems_data[idx] || small_answer == problems_data[idx]) {
+        correct_answer_modal_body.innerHTML = modal_contents[Math.floor(Math.random()*modal_contents.length)];
         correct_answer_modal.show();
         problems_answered ++;
         answer_input.value = '';
