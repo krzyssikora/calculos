@@ -20,7 +20,7 @@ input[type=number] {
 
 input#answer {
     display: inline-block;
-    width: 90%;
+    width: 95%;
     height 4em;
     font-size: 60px;
     padding: 10px 50px;
@@ -36,7 +36,7 @@ input#answer {
 .problem {
     margin: 0 auto;
     display: block;
-    height: 200px;
+    height: 150px;
     width: 300px;
 }
 
@@ -48,4 +48,19 @@ button#confirm_answer, button#next_problem, , button#prev_problem {
     height 5em;
     max-width: 30%;
     padding: 20px;
+}
+
+.mrow {
+    display: none;
+}
+
+.horizontal-shake {
+    animation: horizontal-shaking 0.35s infinite;
+}
+@keyframes horizontal-shaking {
+    0% { transform: translateX(0) }
+    25% { transform: translateX(5px) }
+    50% { transform: translateX(-5px) }
+    75% { transform: translateX(5px) }
+    100% { transform: translateX(0) }
 }
