@@ -71,14 +71,15 @@
 </div>
 
 <!-- correct answer modal -->
-<div class="modal bg-success" id="correct_answer_modal">
-    <div class="modal-dialog modal-fullscreen-md-down" role="document">
-        <div class="modal-content">
-            <div class="modal-body bg-success fs-1">
-                <p>To jest poprawna odpowiedź!</p>
+<div class="modal" id="correct_answer_modal">
+<!--    <div class="modal-dialog modal-fullscreen-md-down" role="document">-->
+    <div class="modal-dialog modal-xl-md-down" role="document">
+        <div class="modal-content bg-success border-0">
+            <div class="modal-body bg-success fs-1 justify-content-center align-items-center" style="height: 100%">
+                To jest poprawna odpowiedź!
             </div>
-            <div class="modal-footer">
-                <button "bg-info fs-1" data-bs-dismiss="modal">Przejdź dalej.</button>
+            <div class="modal-footer row border-success mx-0">
+                <button class="btn col bg-info fs-1 border-warning" data-bs-dismiss="modal">Przejdź dalej.</button>
             </div>
         </div>
     </div>
