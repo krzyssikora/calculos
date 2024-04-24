@@ -19,6 +19,8 @@ const correct_answer_modal_element = document.getElementById('correct_answer_mod
 const correct_answer_modal = new bootstrap.Modal(correct_answer_modal_element);
 const exercise_progress_bar = document.getElementById('exercise_progress_bar');
 const problems_data = JSON.parse(document.getElementById('problems_data').textContent);
+const small_answer_field = document.getElementById('answer_small');
+
 let attempts = [];
 let problems_number;
 let problems_cancelled;
@@ -130,8 +132,12 @@ function accept_answer() {
         next_problem();
         document.getElementById(`problem_${idx}`).remove();
         updateProgressBar(problems_answered, problems_number);
+        // check if all done
+        if (problems_answered == problems_number) {
+
+        };
     } else if ( answer.length || small_answer.length ) {
-        
+        attempts.push(idx);
         answer_input.classList.remove('bg-dark');
         answer_input.classList.add('bg-danger');
         answer_input.classList.add('horizontal-shake');
@@ -144,7 +150,6 @@ function accept_answer() {
 };
 
 // buttons for entering answer on small screens
-const small_answer_field = document.getElementById('answer_small');
 for (let idx=0; idx<=9; idx++) {
     let button = document.getElementById(`button_${idx}`);
     ['click', 'touch'].forEach(e => {

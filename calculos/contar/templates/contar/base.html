@@ -19,6 +19,7 @@
     <script src="https://kit.fontawesome.com/696427376b.js" crossorigin="anonymous"></script>
     <script defer src="{% static './textFit.min.js' %}"></script>
     <script defer src="{% static './contar_script.js' %}"></script>
+    {% block scripts %}{% endblock %}
     <title>{% block title %}MateGoda - JagoMatyka{% endblock %}</title>
     {% mathjax_scripts %}
 </head>

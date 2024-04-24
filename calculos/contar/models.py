@@ -14,12 +14,12 @@ class AlgebraicOperation(models.Model):
     TIMES = 'ML'
     DIVIDE = 'DV'
 
-    OPERATIONS = {
-        PLUS: 'dodawanie',
-        MINUS: 'odejmowanie',
-        TIMES: 'mnożenie',
-        DIVIDE: 'dzielenie'
-    }
+    OPERATIONS = [
+        (PLUS, 'dodawanie'),
+        (MINUS, 'odejmowanie'),
+        (TIMES, 'mnożenie'),
+        (DIVIDE, 'dzielenie')
+    ]
 
     result_functions = {
         PLUS: int.__add__,
