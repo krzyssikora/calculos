@@ -2,7 +2,7 @@ const small_screen_modal_element = document.getElementById('small_screen_info_mo
 const small_screen_modal = new bootstrap.Modal(small_screen_modal_element);
 
 function handleSmallScreenModal(portrait) {
-    if (portrait || window.innerWidth > 600) {
+    if (portrait || window.innerWidth > 1200) {
         small_screen_modal.hide();
     } else {
         small_screen_modal.show();
