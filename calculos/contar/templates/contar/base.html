@@ -1,6 +1,6 @@
+<!DOCTYPE html>
 {% load static %}
 {% load mathjax %}
-<!DOCTYPE html>
 <html lang="pl" data-bs-theme="dark">
 <head>
     <meta charset="UTF-8">
@@ -37,6 +37,23 @@
         <div id="content">
             {% block content %}{% endblock %}
         </div>
+        <!-- modal for small screens in landscape mode -->
+        <div class="modal" id="small_screen_info_modal">
+            <div class="modal-dialog modal-fullscreen" role="document">
+                <div class="modal-content bg-warning text-dark">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Obróć telefon</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p>Przy poziomym ułożeniu telefonu klawiatura zasłoniłaby większość ekranu.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <p>Obróć telefon, by przejść do gry.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>
+
