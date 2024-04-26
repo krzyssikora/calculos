@@ -3,6 +3,7 @@
 {% load static %}
 {% load filters %}
 {% block scripts %}
+{% csrf_token %}
 <script defer src="{% static './contar_game_script.js' %}"></script>
 {% endblock %}
 {% block content %}
@@ -82,6 +83,27 @@
             </div>
         </div>
     </div>
+</div>
+
+<!-- end of ame modal -->
+<div class="modal" id="end_of_game_modal">
+  <div class="modal-dialog modal-fullscreen" role="document">
+    <div class="modal-content bg-success">
+      <div class="modal-header">
+        <h5 class="modal-title">koniec gry</h5>
+      </div>
+      <div class="modal-body">
+          <p class="fs-2">Mnożeń: <span id="problems_number"></span>.</p>
+          <p class="fs-3">Twoich prób: <span id="attempts"></span>.</p>
+          <div class="fs-2"><span id="message"></span></div>
+      </div>
+      <a href="{% url 'contar:index' %}" class="btn btn-lg btn-warning text-danger">
+          zakończ
+      </a>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- results in json for js -->

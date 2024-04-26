@@ -1,13 +1,13 @@
-function fitProblem() {
-    textFit(document.querySelector('.carousel-item.active > .problem'), {minFontSize: 50, maxFontSize: 200});
-};
-function fitProblem0() {
-    textFit(document.querySelector('.carousel-item.active > .problem'), {minFontSize: 100, maxFontSize: 200});
-};
-$('document').ready(fitProblem);
-document.addEventListener('DOMContentLoaded', fitProblem0, false);
-window.addEventListener('load', fitProblem0, false )
-addEventListener("readystatechange", (event) => fitProblem0);
+//function fitProblem() {
+//    textFit(document.querySelector('.carousel-item.active > .problem'), {minFontSize: 50, maxFontSize: 200});
+//};
+//function fitProblem0() {
+//    textFit(document.querySelector('.carousel-item.active > .problem'), {minFontSize: 100, maxFontSize: 200});
+//};
+//$('document').ready(fitProblem);
+//document.addEventListener('DOMContentLoaded', fitProblem0, false);
+//window.addEventListener('load', fitProblem0, false )
+//addEventListener("readystatechange", (event) => fitProblem0);
 
 const myCarousel = document.querySelector('#problem_container');
 const carousel = new bootstrap.Carousel(myCarousel);
@@ -16,6 +16,7 @@ const carousel_prev = document.querySelector('.carousel-prev');
 const answer_input = document.getElementById('answer');
 const answer_confirm = document.getElementById('confirm_answer');
 const correct_answer_modal_element = document.getElementById('correct_answer_modal');
+const correct_answer_modal_body = correct_answer_modal_element.querySelector('.modal-body');
 const correct_answer_modal = new bootstrap.Modal(correct_answer_modal_element);
 const exercise_progress_bar = document.getElementById('exercise_progress_bar');
 const problems_data = JSON.parse(document.getElementById('problems_data').textContent);
@@ -45,9 +46,9 @@ function updateProgressBar(current, maximum) {
     exercise_progress_bar.setAttribute('style', `width: ${current/maximum*100}%`);
 };
 
-myCarousel.addEventListener('slid.bs.carousel', function(e) {
-    fitProblem();
-});
+//myCarousel.addEventListener('slid.bs.carousel', function(e) {
+//    fitProblem();
+//});
 
 function initiate_answer_input() {
     answer_input.value = '';
@@ -117,7 +118,58 @@ document.addEventListener('keypress', (e) => {
     };
 });
 
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+const csrftoken = getCookie('csrftoken');
 
+
+function finishGame(problems_number, attempts) {
+    console.log('problems_number', problems_number);
+    console.log('attempts', attempts);
+//    let url = "{% url 'contar:game_summary_data' %}";
+    let url = "/game_summary_data";
+//    $.ajax({
+//        type: "GET",
+//        url: '/game_summary_data',
+//        data: {
+//            'problems_number': problems_number,
+//            'attempts': attempts.toString()
+//        },
+//        dataType: "json",
+//        success: function (data) {
+//            // any process in data
+//            alert("successfull")
+//        },
+//        failure: function () {
+//            alert("failure");
+//        }
+//    });
+
+    fetch(url, {
+        method:'POST',
+        headers:{
+            'Content-type':'application/json',
+            'X-CSRFToken':csrftoken,
+        },
+        body:JSON.stringify({'problems_number': problems_number, 'attempts': attempts})
+    });
+};
+
+
+let modal_contents = ['To jest poprawna odpowiedź!', 'Świetnie!', 'Brawo!', "Wspaniale!", "Doskonale!"]
 function accept_answer() {
     let answer = answer_input.value;
     let small_answer = small_answer_field.innerHTML;
@@ -125,6 +177,7 @@ function accept_answer() {
     if (!current_problem) {return};
     let idx = parseInt(current_problem.getAttribute('id').match(/\d+/)[0]);
     if (answer == problems_data[idx] || small_answer == problems_data[idx]) {
+        correct_answer_modal_body.innerHTML = modal_contents[Math.floor(Math.random()*modal_contents.length)];
         correct_answer_modal.show();
         problems_answered ++;
         answer_input.value = '';
@@ -134,7 +187,7 @@ function accept_answer() {
         updateProgressBar(problems_answered, problems_number);
         // check if all done
         if (problems_answered == problems_number) {
-
+            finishGame(problems_number, attempts);
         };
     } else if ( answer.length || small_answer.length ) {
         attempts.push(idx);
