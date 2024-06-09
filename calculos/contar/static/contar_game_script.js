@@ -137,27 +137,7 @@ const csrftoken = getCookie('csrftoken');
 
 
 function finishGame(problems_number, attempts) {
-    console.log('problems_number', problems_number);
-    console.log('attempts', attempts);
-//    let url = "{% url 'contar:game_summary_data' %}";
-    let url = "/game_summary_data";
-//    $.ajax({
-//        type: "GET",
-//        url: '/game_summary_data',
-//        data: {
-//            'problems_number': problems_number,
-//            'attempts': attempts.toString()
-//        },
-//        dataType: "json",
-//        success: function (data) {
-//            // any process in data
-//            alert("successfull")
-//        },
-//        failure: function () {
-//            alert("failure");
-//        }
-//    });
-
+    let url = "/contar/game_summary_data";
     fetch(url, {
         method:'POST',
         headers:{

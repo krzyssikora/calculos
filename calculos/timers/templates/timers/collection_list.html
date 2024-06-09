@@ -1,0 +1,46 @@
+{% extends "./base.html" %}
+{% block title %}3, 2, 1...!{% endblock %}
+{% load static %}
+{% load filters %}
+{% load time_temp %}
+{% csrf_token %}
+{% block scripts %}
+<script defer src="{% static './timers_script.js' %}"></script>
+{% endblock %}
+{% block content %}
+
+{% if collections %}
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">lp</th>
+            <th scope="col">tytuł</th>
+            <th scope="col">czas</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for collection, total_time in collections %}
+        <tr>
+            <th scope="row">
+                {{ forloop.counter }}
+            </th>
+            <td>
+                <a href="{% url 'timers:collection_edit' collection.id %}">
+                    <i class="fa-solid fa-play text-success"></i>
+                    <span> {{ collection.name }}</span>
+                </a>
+            </td>
+            <td>
+                {{ total_time|time_view_seconds }}
+            </td>
+            <td>
+                <a href="#"><i class="fa-solid fa-pen text-info"></i></a>
+                <a href="#"><i class="fa-solid fa-xmark text-danger"></i></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+{% endblock %}

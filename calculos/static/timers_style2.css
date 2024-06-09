@@ -1,0 +1,40 @@
+.collection-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.sortable-list {
+    width: 100%;
+    padding: 25px;
+    background: #fff;
+    border-radius: 7px;
+    padding: 30px 25px 20px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+.sortable-list .item {
+    list-style: none;
+    display: flex;
+    cursor: move;
+    background: #fff;
+    align-items: center;
+    border-radius: 5px;
+    padding: 10px 13px;
+    margin-bottom: 11px;
+    /* box-shadow: 0 2px 4px rgba(0,0,0,0.06); */
+    border: 1px solid #ccc;
+    justify-content: space-between;
+    flex-basis: 1 1 1;
+}
+.item .details span {
+    font-size: 1.13rem;
+}
+.item i {
+    color: gray;
+    font-size: 1.13rem;
+}
+.item.dragging {
+    opacity: 0.6;
+}
+.item.dragging :where(.details, i) {
+    opacity: 0;
+}

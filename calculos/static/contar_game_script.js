@@ -137,27 +137,7 @@ const csrftoken = getCookie('csrftoken');
 
 
 function finishGame(problems_number, attempts) {
-    console.log('problems_number', problems_number);
-    console.log('attempts', attempts);
-//    let url = "{% url 'contar:game_summary_data' %}";
-    let url = "/game_summary_data";
-//    $.ajax({
-//        type: "GET",
-//        url: '/game_summary_data',
-//        data: {
-//            'problems_number': problems_number,
-//            'attempts': attempts.toString()
-//        },
-//        dataType: "json",
-//        success: function (data) {
-//            // any process in data
-//            alert("successfull")
-//        },
-//        failure: function () {
-//            alert("failure");
-//        }
-//    });
-
+    let url = "/contar/game_summary_data";
     fetch(url, {
         method:'POST',
         headers:{
@@ -165,6 +145,18 @@ function finishGame(problems_number, attempts) {
             'X-CSRFToken':csrftoken,
         },
         body:JSON.stringify({'problems_number': problems_number, 'attempts': attempts})
+    })
+    .then((response) => response.json())
+    .then(function(data) {
+        let problems_number = data.problems_number;
+        document.getElementById('problems_number').innerHTML = problems_number;
+        let message = data.message;
+        document.getElementById('message').innerHTML = message;
+        let attempts = data.attempts;
+        document.getElementById('attempts').innerHTML = attempts;
+        let end_of_game_modal_element = document.getElementById('end_of_game_modal');
+        let end_of_game_modal = new bootstrap.Modal(end_of_game_modal_element);
+        end_of_game_modal.show();
     });
 };
 
@@ -187,6 +179,7 @@ function accept_answer() {
         updateProgressBar(problems_answered, problems_number);
         // check if all done
         if (problems_answered == problems_number) {
+            correct_answer_modal.hide();
             finishGame(problems_number, attempts);
         };
     } else if ( answer.length || small_answer.length ) {

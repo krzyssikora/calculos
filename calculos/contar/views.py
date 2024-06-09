@@ -1,8 +1,6 @@
 import json
-from collections import defaultdict
 
-from django.shortcuts import render, get_object_or_404, redirect
-from django.urls import reverse
+from django.shortcuts import render
 from django.http import HttpResponseRedirect, JsonResponse
 
 from .models import AlgebraicOperation
@@ -59,8 +57,8 @@ def game_summary_data(request):
 
 
 def game_summary(request, **kwargs):
-    print('request:', request.__dict__.keys())
-    print('kwargs:', kwargs)
+    # print('request:', request.__dict__.keys())
+    # print('kwargs:', kwargs)
     context = {
         'problems_number': kwargs.get('pn'),
         'message': kwargs.get('msg')

@@ -1,0 +1,31 @@
+{% extends "./base.html" %}
+{% block title %}{{ settings.APP_NAME }}{% endblock %}
+{% load static %}
+{% load filters %}
+{% load time_temp %}
+{% csrf_token %}
+{% block scripts %}
+<script defer src="{% static './timers_script_edit.js' %}"></script>
+{% endblock %}
+{% block content %}
+
+<div class="container">
+    <div class="row"></div>
+    <div class="row justify-content-center">
+        <div class="card text-white bg-warning mb-3" style="max-width: 20rem;">
+            <div class="card-header">mnożymy!</div>
+            <div class="card-body">
+                <h4 class="card-title">mistrzyni mnożenia</h4>
+                <p class="card-text"><a class="text-body" style="text-decoration: none;" href="/contar/">zostań mistrzynią tabliczki mnożenia</a></p>
+            </div>
+        </div>
+        <div class="card text-white bg-info mb-3" style="max-width: 20rem;">
+            <div class="card-header">mierzymy!</div>
+            <div class="card-body">
+                <h4 class="card-title">minutnik</h4>
+                <p class="card-text"><a class="text-body" style="text-decoration: none;" href="/timers/">mierz czas codzennych rutynowych czynności</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

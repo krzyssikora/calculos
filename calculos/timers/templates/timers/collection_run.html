@@ -1,0 +1,98 @@
+{% extends "./base.html" %}
+{% block title %}3, 2, 1...!{% endblock %}
+{% load static %}
+{% load filters %}
+{% load time_temp %}
+{% csrf_token %}
+{% block scripts %}
+<script>
+    let tasks = JSON.parse("{{data|escapejs}}");
+    let collection_id = {{collection.id|escapejs}};
+</script>
+<script defer src="{% static './timers_script_run.js' %}"></script>
+{% endblock %}
+{% block content %}
+
+<div class="container border-bottom border-top border-warning" id="total-time">
+    <div class="row">
+        <div class="col text-center text-info display-2" id="total-time-spent">
+        </div>
+        <div class="col text-center text-success display-2" id="total-time-left">
+        </div>
+    </div>
+</div>
+{% for task in tasks %}
+<div class="container hidden border-bottom border-warning" id="container-{{ task.order }}">
+    <div class="row">
+        <div class="col text-center task-name display-1 text-uppercase text-warning">
+            {{ task.name }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col text-center text-info display-2" id="task-time-spent-{{ task.order }}">
+            {{ task.time_spent|time_view }}
+        </div>
+        <div class="col text-center text-success display-2" id="task-time-left-{{ task.order }}">
+            {{ task.time_left|time_view }}
+        </div>
+    </div>
+</div>
+{% endfor %}
+<div class="container" id="buttons">
+    <div class="row"></div>
+    <div class="row justify-content-center">
+        <div class="col-3 text-center display-1" id="backward">
+            <i class="fa-solid fa-backward-step text-info run_icon"></i>
+        </div>
+        <div class="col-3 text-center display-1" id="accept">
+            <i class="fa-regular fa-circle-check text-success run_icon"></i>
+        </div>
+        <div class="col-3 text-center display-1" id="forward">
+            <i class="fa-solid fa-forward-step text-info run_icon"></i>
+        </div>
+    </div>
+    <div class="row"></div>
+    <div class="row"></div>
+    <div class="row justify-content-end">
+        <a href="{% url 'timers:collection_list' %}" class="col-2 display-2 text-primary" id="finish">
+            <i class="fa-solid fa-flag-checkered run_icon"></i>
+        </a>
+    </div>
+</div>
+
+<div class="container hidden" id="summary">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col" rowspan="2">lp</th>
+                <th scope="col" rowspan="2">nazwa</th>
+                <th colspan="3">czas</th>
+            </tr>
+            <tr>
+                <th scope="col">cały</th>
+                <th scope="col">użyty</th>
+                <th scope="col">zostało</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+            <tr>
+                <th scope="row" id="lp-{{ task.order }}"></th>
+                <td>{{ task.name }}</td>
+                <td>{{ task.total_time|time_view }}</td>
+                <td id="summary-spent-{{ task.order }}">{{ task.time_spent|time_view }}</td>
+                <td id="summary-left-{{ task.order }}">{{ task.time_left|time_view }}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <th></th>
+                <th>razem</th>
+                <th id="summary-total-time"></th>
+                <th id="summary-total-spent"></th>
+                <th id="summary-total-left"></th>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

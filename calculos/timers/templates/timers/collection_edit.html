@@ -1,0 +1,70 @@
+{% extends "./base.html" %}
+{% block title %}3, 2, 1...!{% endblock %}
+{% load static %}
+{% load filters %}
+{% load time_temp %}
+{% csrf_token %}
+{% block scripts %}
+<script defer src="{% static './timers_script_edit.js' %}"></script>
+{% endblock %}
+{% block content %}
+<div class="collection-content">
+    <ul class="sortable-list">
+        {% for task in tasks %}
+        <li class="item" draggable="true">
+            <a href="{% url 'timers:collection_edit' collection.id %}">
+                <div class="details">{{ task.name }}</div>
+            </a>
+            <a href="{% url 'timers:collection_edit' collection.id %}">
+                <div class="details">{{ task.seconds|time_view_seconds }}</div>
+            </a>
+            <a href="{% url 'timers:collection_edit' collection.id %}">
+                <i class="fa-regular fa-pen-to-square text-info"></i>
+            </a>
+            <a href="{% url 'timers:collection_edit' collection.id %}">
+                <i class="fa-solid fa-xmark text-danger"></i>
+            </a>
+            <a href="{% url 'timers:collection_edit' collection.id %}">
+                <i class="fa-solid fa-grip-vertical"></i>
+            </a>
+        </li>
+        {% endfor %}
+        <li class="item item-add">
+            <a href="{% url 'timers:collection_edit' collection.id %}">
+                <div class="details"><pre>   </pre></div>
+            </a>
+            <a href="{% url 'timers:collection_edit' collection.id %}">
+                <div class="details"><strong>dodaj</strong></div>
+            </a>
+            <a href="{% url 'timers:collection_edit' collection.id %}">
+                <i class="fa-solid fa-plus text-success"></i>
+            </a>
+            <a href="{% url 'timers:collection_run' collection.id %}">
+                <i class="fa-solid fa-play text-success" style="visibility: hidden;"></i>
+            </a>
+            <a href="{% url 'timers:collection_edit' collection.id %}">
+                <i class="fa-solid fa-plus text-success" style="visibility: hidden;"></i>
+            </a>
+        </li>
+        <li class="item item-add">
+            <a href="{% url 'timers:collection_run' collection.id %}">
+                <div class="details"></div>
+            </a>
+            <a href="{% url 'timers:collection_run' collection.id %}">
+                <div class="details"><strong>start</strong></div>
+            </a>
+            <a href="{% url 'timers:collection_run' collection.id %}">
+                <i class="fa-solid fa-play text-success"></i>
+            </a>
+            <a href="{% url 'timers:collection_run' collection.id %}">
+                <i class="fa-solid fa-play text-success" style="visibility: hidden;"></i>
+            </a>
+            <a href="{% url 'timers:collection_run' collection.id %}">
+                <i class="fa-solid fa-play text-success" style="visibility: hidden;"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+{% endblock %}
+
+
